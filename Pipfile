@@ -6,7 +6,7 @@ name = "pypi"
 [packages]
 discord-py = "*"
 flask = "*"
-indexor_core = ">=0.2.0"
+indexor_core = {git = "https://github.com/speratus/indexor-core.git"}
 
 [dev-packages]
 
