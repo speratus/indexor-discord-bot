@@ -5,11 +5,10 @@ name = "pypi"
 
 [packages]
 discord-py = "*"
-discord-interactions = "*"
 flask = "*"
-indexor-core = {git = "https://github.com/speratus/xng-search-bot-core.git"}
+indexor_core = ">=0.2.0"
 
 [dev-packages]
 
 [requires]
-python_version = "3.10"
+python_version = ">=3.10"

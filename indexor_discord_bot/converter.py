@@ -9,9 +9,11 @@ def dict_to_discord_message(info: dict):
 
     converted_info = {}
 
-    for k, v in info:
-        if hasattr(attr_map, k):
+    for k, v in info.items():
+        if k in attr_map:
             converted_info[k] = attr_map[k](v)
+        else:
+            converted_info[k] = v
 
     return converted_info
 
