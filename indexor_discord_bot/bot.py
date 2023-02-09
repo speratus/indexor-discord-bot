@@ -3,8 +3,9 @@ import discord
 from discord import app_commands
 from converter import dict_to_discord_message
 
-from indexor_core.searcher import search_async
 from indexor_core.config import ini_file_loader
+import commands
+
 
 intents = discord.Intents.default()
 intents.message_content = True
@@ -62,13 +63,9 @@ async def search(interaction: discord.Interaction, search: str):
 
     await interaction.response.defer(ephemeral=False, thinking=True)
 
-    results = await search_async(search, c)
+    response_info = await commands.search(search, c)
 
-    response_data = str(results)[0:250] + '...'
-
-    print(response_data)
-
-    await interaction.followup.send(content=response_data)
+    await interaction.followup.send(**dict_to_discord_message(response_info))
 
 
 def run_bot(token):
