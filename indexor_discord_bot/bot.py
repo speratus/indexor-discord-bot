@@ -6,12 +6,11 @@ from converter import dict_to_discord_message
 from indexor_core.config import ini_file_loader
 import commands
 
+from bot_config import BotConfig
+
 
 intents = discord.Intents.default()
 intents.message_content = True
-
-
-BOT_SPAM = discord.Object(id=588470348324798474)
 
 
 class IndexorClient(discord.Client):
@@ -21,8 +20,15 @@ class IndexorClient(discord.Client):
         self.tree = app_commands.CommandTree(self)
 
     async def setup_hook(self) -> None:
-        self.tree.copy_global_to(guild=BOT_SPAM)
-        await self.tree.sync(guild=BOT_SPAM)
+        config = BotConfig('config.ini')
+
+        guild_id = None
+
+        if config.bot.environment == 'dev':
+            guild_id = discord.Object(id=config.bot.guild_id)
+            self.tree.copy_global_to(guild=guild_id)
+
+        await self.tree.sync(guild=guild_id)
 
 
 client = IndexorClient(intents)
