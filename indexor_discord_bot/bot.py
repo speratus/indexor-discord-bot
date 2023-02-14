@@ -1,10 +1,11 @@
+import os
 
 import discord
 
 from discord import app_commands
 from converter import dict_to_discord_message
 
-from indexor_core.config import ini_file_loader
+from indexor_core.config import Config
 import commands
 
 from bot_config import BotConfig
@@ -43,7 +44,7 @@ async def on_ready():
 @client.tree.command(name="search")
 @app_commands.describe(search="What you want to know")
 async def search(interaction: discord.Interaction, search: str):
-    c = ini_file_loader('config.ini')
+    c = Config(engine_url=os.getenv("ENGINE_URL"))
 
     await interaction.response.defer(ephemeral=False, thinking=True)
 
