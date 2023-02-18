@@ -15,7 +15,7 @@ intents = discord.Intents.default()
 intents.message_content = True
 
 
-class IndexorClient(discord.Client):
+class IndexorClient(discord.AutoShardedClient):
     def __init__(self, intents: discord.Intents):
         super().__init__(intents=intents)
 
@@ -48,9 +48,19 @@ async def search(interaction: discord.Interaction, search: str):
 
     await interaction.response.defer(ephemeral=False, thinking=True)
 
-    response_info = await commands.search(search, c)
+    try:
+        response_info = await commands.search(search, c)
+    except Exception:
+        await interaction.followup.send(content=f"Dewey Encountered an error and couldn't get results for the search: \"{search}\".", ephemeral=True)
+        print(f"Failed to get results for: {search}")
+        return
 
-    await interaction.followup.send(**dict_to_discord_message(response_info))
+    try:
+        await interaction.followup.send(**dict_to_discord_message(response_info))
+    except (discord.HTTPException, discord.InteractionResponded) as e:
+        await interaction.followup.send(content="Message Deleted")
+        await client.get_channel(interaction.channel_id).send(content="Dewey crashed and cannot respond at the moment", delete_after=300)
+        print(f"Dewey crashed while trying to respond!")
 
 
 def run_bot(token):
