@@ -50,9 +50,11 @@ async def search(interaction: discord.Interaction, search: str):
 
     try:
         response_info = await commands.search(search, c)
-    except Exception:
+    except Exception as e:
         await interaction.followup.send(content=f"Dewey Encountered an error and couldn't get results for the search: \"{search}\".", ephemeral=True)
         print(f"Failed to get results for: {search}")
+        print("STACK TRACE-------------------------")
+        print(e)
         return
 
     try:

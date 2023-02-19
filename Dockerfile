@@ -1,5 +1,7 @@
 FROM python:alpine3.16
 
+#STOPSIGNAL SIGINT
+
 RUN apk add git
 
 ENV DISCORD_TOKEN=""
