@@ -27,7 +27,7 @@ async def search(terms: str, config: Config) -> dict:
     top_5 = results['results'][0:25]
 
     response_info = {
-        'content': 'Top 5 Results:',
+        'content': f'Top 5 Results for Search "{terms}":',
     }
 
     embeds = []

@@ -51,7 +51,7 @@ async def search(interaction: discord.Interaction, search: str):
     try:
         response_info = await commands.search(search, c)
     except Exception as e:
-        await interaction.followup.send(content=f"Dewey Encountered an error and couldn't get results for the search: \"{search}\".", ephemeral=True)
+        await interaction.followup.send(content=f"Casper Encountered an error and couldn't get results for the search: \"{search}\".", ephemeral=True)
         print(f"Failed to get results for: {search}")
         print("STACK TRACE-------------------------")
         print(e)
@@ -61,8 +61,8 @@ async def search(interaction: discord.Interaction, search: str):
         await interaction.followup.send(**dict_to_discord_message(response_info))
     except (discord.HTTPException, discord.InteractionResponded) as e:
         await interaction.followup.send(content="Message Deleted")
-        await client.get_channel(interaction.channel_id).send(content="Dewey crashed and cannot respond at the moment", delete_after=300)
-        print(f"Dewey crashed while trying to respond!")
+        await client.get_channel(interaction.channel_id).send(content="Casper crashed and cannot respond at the moment", delete_after=300)
+        print(f"Casper crashed while trying to respond!")
 
 
 def run_bot(token):
