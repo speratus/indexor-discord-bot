@@ -1,14 +1,12 @@
 FROM python:alpine3.16
 
-#STOPSIGNAL SIGINT
-
 RUN apk add git
 
 ENV DISCORD_TOKEN=""
 ENV ENGINE_URL="http://localhost:8000"
 
-COPY . /opt/dewey/
-WORKDIR /opt/dewey/
+COPY . /opt/casper/
+WORKDIR /opt/casper/
 
 
 RUN pip install -r /opt/dewey/requirements.txt
