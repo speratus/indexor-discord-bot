@@ -9,6 +9,6 @@ COPY . /opt/casper/
 WORKDIR /opt/casper/
 
 
-RUN pip install -r /opt/dewey/requirements.txt
+RUN pip install -r /opt/casper/requirements.txt
 
 CMD python indexor_discord_bot
